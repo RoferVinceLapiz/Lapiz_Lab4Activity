@@ -107,12 +107,26 @@
   </section>
 
   <!-- LOGIN -->
-  <section id="login-page" class="page" autocomplete="off">
+  <section id="login-page" class="page">
     <h2>Login</h2>
     <form id="loginForm" autocomplete="off">
-      <input class="form-control mb-2" type="email" placeholder="Email" required autocomplete="off">
-      <input class="form-control mb-2" type="password" placeholder="Password" required autocomplete="current-password">
-      <button class="btn btn-success">Login</button>
+      <input 
+        class="form-control mb-2" 
+        type="email" 
+        name="login_email"
+        placeholder="Email" 
+        required 
+        autocomplete="off"
+      >
+      <input 
+        class="form-control mb-2" 
+        type="password" 
+        name="login_password"
+        placeholder="Password" 
+        required 
+        autocomplete="new-password"
+      >
+      <button class="btn btn-success" type="submit">Login</button>
     </form>
   </section>
 
@@ -171,88 +185,221 @@
   </div>
 </section>
 
-
-
   <!-- EMPLOYEES -->
   <section id="employees-page" class="page">
     <div class="mb-3 text-end">
-  <button class="btn btn-success" id="addEmployeeBtn">+ Add Employee</button>
-</div>
+      <button class="btn btn-success" id="addEmployeeBtn">+ Add Employee</button>
+    </div>
 
-<table class="table table-bordered" id="employeesTable">
-  <thead class="table-dark">
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Position</th>
-      <th>Department</th>
-      <th>Hire Date</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td colspan="6" class="text-center">No employees.</td></tr>
-  </tbody>
-</table>
+    <table class="table table-bordered" id="employeesTable">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Department</th>
+          <th>Hire Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="6" class="text-center">No employees.</td></tr>
+      </tbody>
+    </table>
 
-<!-- Add/Edit Employee Modal -->
-<div class="modal fade" id="employeeModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add/Edit Employee</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form id="employeeForm">
-          <div class="mb-3">
-            <label for="empId" class="form-label">Employee ID</label>
-            <input type="text" class="form-control" id="empId" required>
+    <!-- Add/Edit Employee Modal -->
+    <div class="modal fade" id="employeeModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add/Edit Employee</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="mb-3">
-            <label for="empEmail" class="form-label">User Email</label>
-            <input type="email" class="form-control" id="empEmail" required>
+          <div class="modal-body">
+            <form id="employeeForm">
+              <div class="mb-3">
+                <label for="empId" class="form-label">Employee ID</label>
+                <input type="text" class="form-control" id="empId" required>
+              </div>
+              <div class="mb-3">
+                <label for="empEmail" class="form-label">User Email</label>
+                <input type="email" class="form-control" id="empEmail" required>
+              </div>
+              <div class="mb-3">
+                <label for="empPosition" class="form-label">Position</label>
+                <input type="text" class="form-control" id="empPosition" required>
+              </div>
+              <div class="mb-3">
+                <label for="empDept" class="form-label">Department</label>
+                <select class="form-select" id="empDept" required>
+                  <!-- Departments will be populated dynamically -->
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="empHireDate" class="form-label">Hire Date</label>
+                <input type="date" class="form-control" id="empHireDate" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </form>
           </div>
-          <div class="mb-3">
-            <label for="empPosition" class="form-label">Position</label>
-            <input type="text" class="form-control" id="empPosition" required>
-          </div>
-          <div class="mb-3">
-            <label for="empDept" class="form-label">Department</label>
-            <select class="form-select" id="empDept" required>
-              <!-- Departments will be populated dynamically -->
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="empHireDate" class="form-label">Hire Date</label>
-            <input type="date" class="form-control" id="empHireDate" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
   </section>
 
   <!-- DEPARTMENTS -->
   <section id="departments-page" class="page">
-    <h2>Departments</h2>
-    <div id="departmentsTable"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">Departments</h2>
+      <button class="btn btn-success" id="addDepartmentBtn">+ Add Department</button>
+    </div>
+
+    <table class="table table-bordered" id="departmentsTable">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Add/Edit Department Modal -->
+    <div class="modal fade" id="departmentModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add/Edit Department</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="departmentForm">
+              <input type="hidden" id="deptEditIndex">
+              <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" id="deptName" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-control" id="deptDesc" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ACCOUNTS -->
   <section id="accounts-page" class="page">
-    <h2>Accounts</h2>
-    <div id="accountsTable"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">Accounts</h2>
+      <button class="btn btn-success" id="addAccountBtn">+ Add Account</button>
+    </div>
+
+    <table class="table table-bordered" id="accountsTable">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Verified</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Add/Edit Account Form -->
+    <div id="accountFormContainer" style="display:none;" class="border p-3 mt-3">
+      <h5>Add/Edit Account</h5>
+      <form id="accountForm">
+        <input type="hidden" id="accountEditId">
+        <div class="mb-2">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-control" id="accFirst" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="accLast" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" id="accEmail" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" id="accPassword">
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Role</label>
+          <select class="form-select" id="accRole">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="mb-2 form-check">
+          <input type="checkbox" class="form-check-input" id="accVerified">
+          <label class="form-check-label">Verified</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" id="cancelAccountBtn">Cancel</button>
+      </form>
+    </div>
   </section>
 
   <!-- REQUESTS -->
   <section id="requests-page" class="page">
-    <h2>My Requests</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">My Requests</h2>
+      <button class="btn btn-success" id="newRequestBtn">New Request</button>
+    </div>
+
     <div id="requestsTable"></div>
+
+    <!-- New Request Modal -->
+    <div class="modal fade" id="requestModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">New Request</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body">
+            <form id="requestForm">
+              <div class="mb-3">
+                <label for="requestType" class="form-label">Type</label>
+                <select class="form-select" id="requestType" required>
+                  <option value="">Select Request Type</option>
+                  <option value="Equipment">Equipment</option>
+                  <option value="Leave">Leave</option>
+                  <option value="Office Supplies">Office Supplies</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Items</label>
+                <div id="requestItemsContainer">
+                  <div class="input-group mb-2 request-item-row">
+                    <input type="text" class="form-control item-name" placeholder="Item name" required>
+                    <input type="number" class="form-control item-qty" value="1" min="1" style="max-width: 100px;" required>
+                    <button type="button" class="btn btn-outline-success add-item-btn">+</button>
+                    <button type="button" class="btn btn-outline-danger remove-item-btn">X</button>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
 </main>
